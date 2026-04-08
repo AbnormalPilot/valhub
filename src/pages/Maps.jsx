@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 function Maps() {
   const [maps, setMaps] = useState([])
   const [search, setSearch] = useState('')
-  const [sortAsc, setSortAsc] = useState(true)
+const [sortAsc, setSortAsc] = useState(true)
   const [typeFilter, setTypeFilter] = useState('all') // all, main, practice
   const [selectedMap, setSelectedMap] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -23,7 +23,7 @@ function Maps() {
 
   const filteredMaps = maps
     .filter(map => map.splash !== null)
-    .filter(map => {
+.filter(map => {
       const matchesSearch = map.displayName.toLowerCase().includes(search.toLowerCase())
       if (typeFilter === 'main') return matchesSearch && map.tacticalDescription
       if (typeFilter === 'practice') return matchesSearch && !map.tacticalDescription
@@ -54,8 +54,7 @@ function Maps() {
             className="w-full py-3 pr-4 pl-[42px] bg-val-card border border-val-text/8 text-val-text text-sm rounded transition-all duration-300 placeholder:text-val-dim focus:border-val-red focus:shadow-[0_0_0_3px_rgba(255,70,85,0.3)] focus:outline-none"
           />
         </div>
-
-        <div className="flex flex-wrap gap-2 max-md:justify-center">
+<div className="flex flex-wrap gap-2 max-md:justify-center">
           {['all', 'main', 'practice'].map(type => (
             <button
               key={type}

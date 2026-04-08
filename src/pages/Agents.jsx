@@ -8,7 +8,8 @@ function Agents({ favorites, toggleFavorite, isFavorited }) {
   const [roleFilter, setRoleFilter] = useState('all')
   const [showFavsOnly, setShowFavsOnly] = useState(false)
   const [selectedAgent, setSelectedAgent] = useState(null)
-  const [sortBy, setSortBy] = useState('name')
+const [sortBy, setSortBy] = useState('name')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch('https://valorant-api.com/v1/agents?isPlayableCharacter=true')
@@ -30,7 +31,7 @@ function Agents({ favorites, toggleFavorite, isFavorited }) {
       const matchesFav = !showFavsOnly || favorites.includes(agent.uuid)
       return matchesSearch && matchesRole && matchesFav
     })
-    .sort((a, b) => {
+.sort((a, b) => {
       if (sortBy === 'role') {
         const roleA = a.role?.displayName || ''
         const roleB = b.role?.displayName || ''
@@ -88,8 +89,7 @@ function Agents({ favorites, toggleFavorite, isFavorited }) {
           >
             ❤️ FAVORITES ({favCount})
           </button>
-
-          <div className="flex items-center gap-2.5 ml-auto max-md:ml-0 max-md:justify-center">
+<div className="flex items-center gap-2.5 ml-auto max-md:ml-0 max-md:justify-center">
             <label className="font-teko text-sm tracking-[2px] text-val-muted">SORT BY:</label>
             <select
               value={sortBy}

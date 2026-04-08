@@ -39,7 +39,7 @@ function App() {
     }, 1500)
   }, [])
 
-  const [theme, setTheme] = useState(() => {
+const [theme, setTheme] = useState(() => {
     return localStorage.getItem('valorant-theme') || 'dark'
   })
 
@@ -55,7 +55,6 @@ function App() {
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark')
   }
-
   const isActive = (path) => {
     if (path === '/' && location.pathname === '/') return 'active'
     if (path !== '/' && location.pathname.startsWith(path)) return 'active'
@@ -78,7 +77,7 @@ function App() {
           <span className="text-val-red">VAL</span><span className="text-val-text">HUB</span>
         </Link>
 
-        <div className="flex items-center gap-4">
+<div className="flex items-center gap-4">
           <button
             onClick={toggleTheme}
             className="w-10 h-10 flex items-center justify-center rounded-full bg-val-card border border-val-text/8 text-val-text cursor-pointer transition-all duration-300 hover:border-val-red hover:text-val-red"

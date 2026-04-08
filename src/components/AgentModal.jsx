@@ -11,7 +11,6 @@ function AgentModal({ agent, onClose }) {
       setTimeout(() => setCopied(false), 2000)
     })
   }
-
   const colors = agent.backgroundGradientColors || []
   const bg = colors.length >= 2
     ? { background: `linear-gradient(135deg, #${colors[0].slice(0,6)}, #${colors[1].slice(0,6)})` }
@@ -20,7 +19,7 @@ function AgentModal({ agent, onClose }) {
   return (
     <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-[8px] flex items-center justify-center p-5 animate-fade-in" onClick={onClose}>
       <div className="bg-val-modal border border-val-text/15 max-w-[650px] w-full max-h-[85vh] overflow-y-auto relative clip-corner-lg animate-modal-pop" onClick={e => e.stopPropagation()}>
-        <div className="absolute top-4 right-4 flex gap-2 z-10">
+<div className="absolute top-4 right-4 flex gap-2 z-10">
           <button 
             className={`h-9 px-4 font-teko text-sm tracking-[2px] border transition-all duration-300 flex items-center gap-2 cursor-pointer ${
               copied 

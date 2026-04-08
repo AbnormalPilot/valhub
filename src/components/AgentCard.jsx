@@ -2,7 +2,7 @@ function AgentCard({ agent, onClick, isFavorited, toggleFavorite }) {
   const colors = agent.backgroundGradientColors || []
   const gradientStyle = colors.length >= 2
     ? { background: `linear-gradient(135deg, #${colors[0].slice(0,6)}, #${colors[1].slice(0,6)})` }
-    : { background: 'var(--theme-card)' }
+: { background: 'var(--theme-card)' }
 
   const handleFav = (e) => {
     e.stopPropagation()
