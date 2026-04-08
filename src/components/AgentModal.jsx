@@ -37,7 +37,7 @@ function AgentModal({ agent, onClose }) {
               </>
             )}
           </button>
-          <button className="w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-val-red hover:text-white" onClick={onClose}>✕</button>
+          <button className="w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-val-red hover:text-val-text" onClick={onClose}>✕</button>
         </div>
 
         <div className="relative h-[300px] overflow-hidden flex items-center justify-center">
@@ -59,8 +59,8 @@ function AgentModal({ agent, onClose }) {
           {agent.abilities && agent.abilities
             .filter(a => a.displayName)
             .map((ability, i) => (
-              <div className="flex gap-3.5 p-3.5 bg-white/[0.03] border border-val-text/8 rounded mb-3 transition-colors duration-300 hover:border-val-text/15" key={i}>
-                {ability.displayIcon && <img src={ability.displayIcon} alt="" className="w-11 h-11 object-contain brightness-0 invert shrink-0" />}
+              <div className="flex gap-3.5 p-3.5 bg-val-text/[0.03] border border-val-text/8 rounded mb-3 transition-colors duration-300 hover:border-val-text/15" key={i}>
+                {ability.displayIcon && <img src={ability.displayIcon} alt="" className="w-11 h-11 object-contain shrink-0" style={{ filter: 'var(--icon-filter)' }} />}
                 <div>
                   <div className="font-teko text-lg font-semibold tracking-[2px] uppercase">{ability.displayName}</div>
                   <div className="text-[0.7rem] tracking-[2px] text-val-red uppercase mt-[2px] mb-1.5">{ability.slot}</div>

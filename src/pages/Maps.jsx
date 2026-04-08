@@ -60,7 +60,7 @@ const [sortAsc, setSortAsc] = useState(true)
               key={type}
               className={`font-teko text-sm tracking-[2px] py-2.5 px-5 cursor-pointer transition-all duration-300 clip-corner-sm max-[480px]:py-2 max-[480px]:px-3 ${
                 typeFilter === type
-                  ? 'bg-val-red text-white border border-val-red'
+                  ? 'bg-val-red text-val-text border border-val-red'
                   : 'text-val-muted bg-val-card border border-val-text/8 hover:text-val-text'
               }`}
               onClick={() => setTypeFilter(type)}
@@ -89,7 +89,7 @@ const [sortAsc, setSortAsc] = useState(true)
       ) : filteredMaps.length > 0 ? (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-6 max-md:grid-cols-1">
           {filteredMaps.map(map => (
-            <div className="group relative h-60 overflow-hidden cursor-pointer border border-val-text/8 clip-corner-lg transition-all duration-300 hover:-translate-y-1 hover:border-val-red hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)]" key={map.uuid} onClick={() => setSelectedMap(map)}>
+            <div className="group relative h-60 overflow-hidden cursor-pointer border border-val-text/8 clip-corner-lg transition-all duration-300 hover:-translate-y-1 hover:border-val-red hover:shadow-[0_15px_40px_rgba(var(--shadow-color),0.4)]" key={map.uuid} onClick={() => setSelectedMap(map)}>
               <img src={map.splash} alt={map.displayName} className="w-full h-full object-cover transition-all duration-[400ms] group-hover:scale-[1.06]" />
               <div className="absolute inset-0 flex flex-col justify-end p-6" style={{ background: 'linear-gradient(to top, rgba(var(--theme-dark-rgb), 0.95), rgba(var(--theme-dark-rgb), 0.2) 60%)' }}>
                 <div className="font-teko text-[2.2rem] font-bold tracking-[3px] uppercase leading-none">{map.displayName}</div>
@@ -108,7 +108,7 @@ const [sortAsc, setSortAsc] = useState(true)
       {selectedMap && (
         <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-[8px] flex items-center justify-center p-5 animate-fade-in" onClick={() => setSelectedMap(null)}>
           <div className="bg-val-modal border border-val-text/15 max-w-[800px] w-full max-h-[85vh] overflow-y-auto relative clip-corner-lg animate-modal-pop" onClick={e => e.stopPropagation()}>
-            <button className="absolute top-4 right-4 w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:bg-val-red hover:text-white" onClick={() => setSelectedMap(null)}>✕</button>
+            <button className="absolute top-4 right-4 w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:bg-val-red hover:text-val-text" onClick={() => setSelectedMap(null)}>✕</button>
 
             <div className="relative h-[280px] overflow-hidden">
               <img src={selectedMap.splash} alt={selectedMap.displayName} className="w-full h-full object-cover" />

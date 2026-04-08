@@ -54,7 +54,7 @@ background: 'linear-gradient(to top, var(--theme-dark) 0%, transparent 100%), li
             VALORANT<br />
             <span className="text-val-red text-[4.5rem] max-lg:text-[3.5rem] max-md:text-[2.5rem] max-[480px]:text-[2rem]">INFO HUB</span>
           </h1>
-          <Link to="/agents" className="inline-block font-teko text-[1.15rem] font-semibold tracking-[3px] py-3.5 px-10 bg-val-red text-white border-none cursor-pointer transition-all duration-300 uppercase clip-corner-md hover:bg-val-red-dark hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,70,85,0.3)]">
+          <Link to="/agents" className="inline-block font-teko text-[1.15rem] font-semibold tracking-[3px] py-3.5 px-10 bg-val-red text-val-text border-none cursor-pointer transition-all duration-300 uppercase clip-corner-md hover:bg-val-red-dark hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,70,85,0.3)]">
             EXPLORE AGENTS
           </Link>
         </div>

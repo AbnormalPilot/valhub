@@ -12,9 +12,9 @@ function AgentCard({ agent, onClick, isFavorited, toggleFavorite }) {
   const favorited = isFavorited ? isFavorited(agent.uuid) : false
 
   return (
-    <div className="group relative bg-val-card border border-val-text/8 overflow-hidden cursor-pointer transition-all duration-300 clip-corner hover:-translate-y-1.5 hover:border-val-red hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)]" onClick={() => onClick(agent)}>
+    <div className="group relative bg-val-card border border-val-text/8 overflow-hidden cursor-pointer transition-all duration-300 clip-corner hover:-translate-y-1.5 hover:border-val-red hover:shadow-[0_15px_40px_rgba(var(--shadow-color),0.4)]" onClick={() => onClick(agent)}>
       {toggleFavorite && (
-        <button className={`absolute top-2.5 right-2.5 z-[5] text-xl cursor-pointer bg-black/50 border-none rounded-full w-9 h-9 flex items-center justify-center transition-all duration-300 hover:scale-[1.15] ${favorited ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`} onClick={handleFav}>
+        <button className={`absolute top-2.5 right-2.5 z-[5] text-xl cursor-pointer bg-val-dark/50 border-none rounded-full w-9 h-9 flex items-center justify-center transition-all duration-300 hover:scale-[1.15] ${favorited ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`} onClick={handleFav}>
           {favorited ? '❤️' : '🤍'}
         </button>
       )}

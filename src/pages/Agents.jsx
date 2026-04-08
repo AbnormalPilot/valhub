@@ -71,7 +71,7 @@ const [sortBy, setSortBy] = useState('name')
               key={role}
               className={`font-teko text-sm tracking-[2px] py-2.5 px-5 cursor-pointer transition-all duration-300 clip-corner-sm max-[480px]:py-2 max-[480px]:px-3 max-[480px]:text-[0.8rem] ${
                 roleFilter === role
-                  ? 'bg-val-red text-white border border-val-red'
+                  ? 'bg-val-red text-val-text border border-val-red'
                   : 'text-val-muted bg-val-card border border-val-text/8 hover:text-val-text'
               }`}
               onClick={() => setRoleFilter(role)}
@@ -82,7 +82,7 @@ const [sortBy, setSortBy] = useState('name')
           <button
             className={`font-teko text-sm tracking-[2px] py-2.5 px-5 cursor-pointer transition-all duration-300 clip-corner-sm max-[480px]:py-2 max-[480px]:px-3 max-[480px]:text-[0.8rem] ${
               showFavsOnly
-                ? 'bg-val-red text-white border border-val-red'
+                ? 'bg-val-red text-val-text border border-val-red'
                 : 'text-val-muted bg-val-card border border-val-text/8 hover:text-val-text'
             }`}
             onClick={() => setShowFavsOnly(!showFavsOnly)}

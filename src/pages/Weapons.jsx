@@ -103,7 +103,7 @@ function Weapons({ favorites, toggleFavorite, isFavorited }) {
               key={cat}
               className={`font-teko text-sm tracking-[2px] py-2.5 px-5 cursor-pointer transition-all duration-300 clip-corner-sm max-[480px]:py-2 max-[480px]:px-3 max-[480px]:text-[0.8rem] ${
                 catFilter === cat
-                  ? 'bg-val-red text-white border border-val-red'
+                  ? 'bg-val-red text-val-text border border-val-red'
                   : 'text-val-muted bg-val-card border border-val-text/8 hover:text-val-text'
               }`}
               onClick={() => setCatFilter(cat)}
@@ -135,8 +135,8 @@ function Weapons({ favorites, toggleFavorite, isFavorited }) {
       ) : filteredWeapons.length > 0 ? (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5 max-md:grid-cols-1">
           {filteredWeapons.map(weapon => (
-            <div className="group relative bg-val-card border border-val-text/8 p-6 cursor-pointer transition-all duration-300 clip-corner hover:-translate-y-1 hover:border-val-red hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)]" key={weapon.uuid} onClick={() => setSelectedWeapon(weapon)}>
-              <button className={`absolute top-2.5 right-2.5 z-[5] text-xl cursor-pointer bg-black/50 border-none rounded-full w-9 h-9 flex items-center justify-center transition-all duration-300 hover:scale-[1.15] ${isFavorited(weapon.uuid) ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`} onClick={(e) => { e.stopPropagation(); toggleFavorite(weapon.uuid) }}>
+            <div className="group relative bg-val-card border border-val-text/8 p-6 cursor-pointer transition-all duration-300 clip-corner hover:-translate-y-1 hover:border-val-red hover:shadow-[0_15px_40px_rgba(var(--shadow-color),0.4)]" key={weapon.uuid} onClick={() => setSelectedWeapon(weapon)}>
+              <button className={`absolute top-2.5 right-2.5 z-[5] text-xl cursor-pointer bg-val-dark/50 border-none rounded-full w-9 h-9 flex items-center justify-center transition-all duration-300 hover:scale-[1.15] ${isFavorited(weapon.uuid) ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`} onClick={(e) => { e.stopPropagation(); toggleFavorite(weapon.uuid) }}>
                 {isFavorited(weapon.uuid) ? '❤️' : '🤍'}
               </button>
               <div className="flex justify-between mb-4">
@@ -144,7 +144,7 @@ function Weapons({ favorites, toggleFavorite, isFavorited }) {
                 <span className="font-teko text-base text-val-green">{getCost(weapon) > 0 ? `${getCost(weapon)}` : 'FREE'}</span>
               </div>
               <div className="h-20 flex items-center justify-center mb-4">
-                {weapon.displayIcon && <img src={weapon.displayIcon} alt={weapon.displayName} className="max-h-[70px] brightness-0 invert opacity-90 transition-all duration-300 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_rgba(255,70,85,0.4)]" />}
+                {weapon.displayIcon && <img src={weapon.displayIcon} alt={weapon.displayName} className="max-h-[70px] opacity-90 transition-all duration-300 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_rgba(255,70,85,0.4)]" />}
               </div>
               <div className="font-teko text-[1.8rem] font-semibold tracking-[2px] uppercase mb-3">{weapon.displayName}</div>
               {weapon.weaponStats && (
@@ -194,11 +194,11 @@ function Weapons({ favorites, toggleFavorite, isFavorited }) {
                   </>
                 )}
               </button>
-              <button className="w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-val-red hover:text-white" onClick={() => setSelectedWeapon(null)}>✕</button>
+              <button className="w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-val-red hover:text-val-text" onClick={() => setSelectedWeapon(null)}>✕</button>
             </div>
 
             <div className="p-10 flex items-center justify-center border-b border-val-text/8" style={{ background: 'linear-gradient(135deg, var(--theme-card), var(--theme-modal))' }}>
-              {selectedWeapon.displayIcon && <img src={selectedWeapon.displayIcon} alt="" className="max-h-[120px] brightness-0 invert" />}
+              {selectedWeapon.displayIcon && <img src={selectedWeapon.displayIcon} alt="" className="max-h-[120px]" style={{ filter: 'var(--icon-filter)' }} />}
             </div>
 
             <div className="p-[30px]">
