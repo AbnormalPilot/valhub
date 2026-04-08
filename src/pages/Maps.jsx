@@ -91,7 +91,7 @@ const [sortAsc, setSortAsc] = useState(true)
           {filteredMaps.map(map => (
             <div className="group relative h-60 overflow-hidden cursor-pointer border border-val-text/8 clip-corner-lg transition-all duration-300 hover:-translate-y-1 hover:border-val-red hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)]" key={map.uuid} onClick={() => setSelectedMap(map)}>
               <img src={map.splash} alt={map.displayName} className="w-full h-full object-cover transition-all duration-[400ms] group-hover:scale-[1.06]" />
-              <div className="absolute inset-0 flex flex-col justify-end p-6" style={{ background: 'linear-gradient(to top, rgba(15, 25, 35, 0.95), rgba(15, 25, 35, 0.2) 60%)' }}>
+              <div className="absolute inset-0 flex flex-col justify-end p-6" style={{ background: 'linear-gradient(to top, rgba(var(--theme-dark-rgb), 0.95), rgba(var(--theme-dark-rgb), 0.2) 60%)' }}>
                 <div className="font-teko text-[2.2rem] font-bold tracking-[3px] uppercase leading-none">{map.displayName}</div>
                 {map.coordinates && <div className="text-[0.8rem] text-val-muted tracking-[1px] mt-1">{map.coordinates}</div>}
               </div>
@@ -112,7 +112,7 @@ const [sortAsc, setSortAsc] = useState(true)
 
             <div className="relative h-[280px] overflow-hidden">
               <img src={selectedMap.splash} alt={selectedMap.displayName} className="w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #1a2634, transparent 60%)' }}></div>
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--theme-modal), transparent 60%)' }}></div>
             </div>
 
             <div className="p-[30px]">

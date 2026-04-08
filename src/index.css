@@ -7,6 +7,13 @@
   --theme-text: #ece8e1;
   --theme-muted: #8b978f;
   --theme-dim: #5a6670;
+  /* RGB versions for rgba() usage */
+  --theme-dark-rgb: 15, 25, 35;
+  --theme-card-rgb: 28, 43, 58;
+  --theme-modal-rgb: 26, 38, 52;
+  --theme-text-rgb: 236, 232, 225;
+  --theme-muted-rgb: 139, 151, 143;
+  --theme-dim-rgb: 90, 102, 112;
 }
 
 .light-mode {
@@ -16,6 +23,13 @@
   --theme-text: #1a2634;
   --theme-muted: #4a5568;
   --theme-dim: #718096;
+  /* RGB versions for rgba() usage */
+  --theme-dark-rgb: 240, 243, 245;
+  --theme-card-rgb: 255, 255, 255;
+  --theme-modal-rgb: 255, 255, 255;
+  --theme-text-rgb: 26, 38, 52;
+  --theme-muted-rgb: 74, 85, 104;
+  --theme-dim-rgb: 113, 128, 150;
 }
 
 @theme {
@@ -107,12 +121,12 @@
       top: 70px;
       left: 0;
       right: 0;
-      background: rgba(15, 25, 35, 0.98);
+      background: rgba(var(--theme-dark-rgb), 0.98);
       backdrop-filter: blur(20px);
       flex-direction: column;
       align-items: center;
       padding: 20px 0;
-      border-bottom: 1px solid rgba(236, 232, 225, 0.08);
+      border-bottom: 1px solid rgba(var(--theme-text-rgb), 0.08);
       transform: translateY(-100%);
       opacity: 0;
       visibility: hidden;

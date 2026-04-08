@@ -77,29 +77,11 @@ const [theme, setTheme] = useState(() => {
           <span className="text-val-red">VAL</span><span className="text-val-text">HUB</span>
         </Link>
 
-<div className="flex items-center gap-4">
-          <button
-            onClick={toggleTheme}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-val-card border border-val-text/8 text-val-text cursor-pointer transition-all duration-300 hover:border-val-red hover:text-val-red"
-            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          >
-            {theme === 'dark' ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.95 16.95l.707.707M7.05 7.05l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            )}
-          </button>
-
-          <button className="hidden max-md:flex flex-col gap-[5px] cursor-pointer bg-transparent border-none p-[5px]" onClick={() => setMenuOpen(!menuOpen)}>
+<button className="hidden max-md:flex flex-col gap-[5px] cursor-pointer bg-transparent border-none p-[5px]" onClick={() => setMenuOpen(!menuOpen)}>
             <span className="w-6 h-0.5 bg-val-text transition-all duration-300"></span>
             <span className="w-6 h-0.5 bg-val-text transition-all duration-300"></span>
             <span className="w-6 h-0.5 bg-val-text transition-all duration-300"></span>
           </button>
-        </div>
 
         <ul className={`nav-links ${menuOpen ? 'show' : ''}`}>
           <li><Link to="/" className={`nav-link ${isActive('/')}`}>HOME</Link></li>
@@ -107,6 +89,23 @@ const [theme, setTheme] = useState(() => {
           <li><Link to="/maps" className={`nav-link ${isActive('/maps')}`}>MAPS</Link></li>
           <li><Link to="/weapons" className={`nav-link ${isActive('/weapons')}`}>WEAPONS</Link></li>
           <li><Link to="/ranks" className={`nav-link ${isActive('/ranks')}`}>RANKS</Link></li>
+          <li>
+            <button
+              onClick={toggleTheme}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-val-card border border-val-text/8 text-val-text cursor-pointer transition-all duration-300 hover:border-val-red hover:text-val-red"
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.95 16.95l.707.707M7.05 7.05l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
+            </button>
+          </li>
         </ul>
       </nav>
 
