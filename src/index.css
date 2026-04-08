@@ -1,4 +1,6 @@
-@import "tailwindcss";
+* {
+  box-sizing: border-box;
+}
 
 :root {
   --theme-dark: #0f1923;
@@ -7,302 +9,562 @@
   --theme-text: #ece8e1;
   --theme-muted: #8b978f;
   --theme-dim: #5a6670;
-  
-  /* RGB versions for rgba() usage */
   --theme-dark-rgb: 15, 25, 35;
   --theme-card-rgb: 28, 43, 58;
   --theme-modal-rgb: 26, 38, 52;
   --theme-text-rgb: 236, 232, 225;
-  --theme-muted-rgb: 139, 151, 143;
-  --theme-dim-rgb: 90, 102, 112;
-  
-  /* Shadows and overlays */
   --shadow-color: 0, 0, 0;
   --overlay-strong: rgba(0, 0, 0, 0.5);
   --icon-filter: brightness(0) invert(1);
 }
 
-.light-mode {
-  /* Cream background for light mode */
-  --theme-dark: #f4efeb; 
+body.light-mode {
+  --theme-dark: #f4efeb;
   --theme-card: #ffffff;
   --theme-modal: #f9f5f0;
   --theme-text: #1a2634;
   --theme-muted: #4a5568;
   --theme-dim: #718096;
-  
-  /* RGB versions for rgba() usage */
   --theme-dark-rgb: 244, 239, 235;
   --theme-card-rgb: 255, 255, 255;
   --theme-modal-rgb: 249, 245, 240;
   --theme-text-rgb: 26, 38, 52;
-  --theme-muted-rgb: 74, 85, 104;
-  --theme-dim-rgb: 113, 128, 150;
-  
-  /* Shadows and overlays */
   --shadow-color: 0, 0, 0;
-  --overlay-strong: rgba(0, 0, 0, 0.4);
+  --overlay-strong: rgba(0, 0, 0, 0.35);
   --icon-filter: none;
 }
 
-@theme {
-  --color-val-dark: var(--theme-dark);
-  --color-val-card: var(--theme-card);
-  --color-val-modal: var(--theme-modal);
-  --color-val-red: #ff4655;
-  --color-val-red-dark: #d63845;
-  --color-val-green: #37b39d;
-  --color-val-text: var(--theme-text);
-  --color-val-muted: var(--theme-muted);
-  --color-val-dim: var(--theme-dim);
-  --font-family-teko: 'Teko', sans-serif;
-  --font-family-dm: 'DM Sans', sans-serif;
+html {
+  scroll-behavior: smooth;
 }
 
-@layer base {
-  html, body {
-    font-family: var(--font-family-dm);
-    background-color: #0f1923;
-    color: var(--color-val-text);
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-  }
-  
-  /* Signature Valorant Geometric Background Overlay */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background-image: 
-      linear-gradient(rgba(var(--theme-text-rgb), 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(var(--theme-text-rgb), 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: radial-gradient(circle at center, transparent 0%, var(--color-val-dark) 100%);
-    opacity: 0.6;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--color-val-dark); }
-  ::-webkit-scrollbar-thumb { background: var(--color-val-red); border-radius: 3px; }
+html,
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "DM Sans", sans-serif;
+  background-color: var(--theme-dark);
+  color: var(--theme-text);
 }
 
-@layer components {
-  /* Loading Bar */
-  .loading-bar {
-    width: 120px;
-    height: 3px;
-    background: var(--color-val-modal);
-    position: relative;
-    overflow: hidden;
-  }
-  .loading-bar::after {
-    content: '';
-    position: absolute;
-    left: -40%;
-    width: 40%;
-    height: 100%;
-    background: var(--color-val-red);
-    animation: loadSlide 1s ease-in-out infinite;
-  }
-
-  /* Nav Links - Valorant Bracket Style */
-  .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 8px;
-  }
-  .nav-link {
-    font-family: var(--font-family-teko);
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: 2px;
-    padding: 8px 20px;
-    color: var(--color-val-muted);
-    transition: 0.3s;
-    position: relative;
-    display: inline-block;
-  }
-  
-  .nav-link::before, .nav-link::after {
-    opacity: 0;
-    transition: all 0.3s ease;
-    color: var(--color-val-red);
-    font-weight: bold;
-    position: absolute;
-  }
-  
-  .nav-link::before {
-    content: '[';
-    left: 0;
-    transform: translateX(10px);
-  }
-  
-  .nav-link::after {
-    content: ']';
-    right: 0;
-    transform: translateX(-10px);
-  }
-
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--color-val-text);
-  }
-  
-  .nav-link:hover::before,
-  .nav-link.active::before {
-    opacity: 1;
-    transform: translateX(5px);
-  }
-  
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    opacity: 1;
-    transform: translateX(-5px);
-  }
-
-  /* Core Valorant Button Utility */
-  .val-btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    color: var(--color-val-text);
-    border: 1px solid rgba(var(--theme-text-rgb), 0.2);
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    z-index: 1;
-    font-family: var(--font-family-teko);
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .val-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-val-red);
-    z-index: -1;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  }
-
-  .val-btn:hover {
-    border-color: var(--color-val-red);
-    color: var(--theme-text);
-  }
-
-  .light-mode .val-btn:hover {
-    color: #ffffff; /* Explicit override for contrast */
-  }
-
-  .val-btn:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  .val-btn-active {
-    background-color: var(--color-val-red);
-    color: #ffffff !important;
-    border-color: var(--color-val-red);
-  }
-
-  @media (max-width: 768px) {
-    .nav-links {
-      position: fixed;
-      top: 70px;
-      left: 0;
-      right: 0;
-      background: rgba(var(--theme-dark-rgb), 0.98);
-      backdrop-filter: blur(20px);
-      flex-direction: column;
-      align-items: center;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(var(--theme-text-rgb), 0.08);
-      transform: translateY(-100%);
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
-    .nav-links.show {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-
-  .hero-portrait:nth-child(4) {
-    opacity: 0.75 !important;
-    filter: brightness(1) !important;
-    z-index: 1;
-    height: 90% !important;
-  }
+body {
+  position: relative;
 }
 
-/* Sharp Clip Paths */
-@utility clip-corner-sm {
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(var(--theme-text-rgb), 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--theme-text-rgb), 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
-@utility clip-corner-xs {
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.7;
+  background:
+    radial-gradient(circle at top left, rgba(255, 70, 85, 0.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(55, 179, 157, 0.1), transparent 24%),
+    radial-gradient(circle at center, transparent 0%, var(--theme-dark) 88%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+input[type="text"],
+select {
+  color: var(--theme-text);
+  background-color: var(--theme-card);
+}
+
+input[type="text"]::placeholder {
+  color: var(--theme-dim);
+  opacity: 1;
+}
+
+input[type="text"] {
+  caret-color: #ff4655;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select option {
+  color: var(--theme-text);
+  background-color: var(--theme-modal);
+}
+
+body.light-mode input[type="text"],
+body.light-mode select {
+  color: #1a2634;
+  background-color: #ffffff;
+}
+
+body.light-mode input[type="text"]::placeholder {
+  color: #718096;
+}
+
+body.light-mode select option {
+  color: #1a2634;
+  background-color: #f9f5f0;
+}
+
+img {
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff4655;
+  border-radius: 999px;
+}
+
+.loading-bar {
+  position: relative;
+  width: 120px;
+  height: 3px;
+  overflow: hidden;
+  background: var(--theme-modal);
+}
+
+.loading-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: #ff4655;
+  animation: loadSlide 1s ease-in-out infinite;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  padding: 8px 20px;
+  color: var(--theme-muted);
+  font-family: "Teko", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  transition: 0.3s;
+}
+
+.nav-link::before,
+.nav-link::after {
+  position: absolute;
+  color: #ff4655;
+  font-weight: 700;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.nav-link::before {
+  content: "[";
+  left: 0;
+  transform: translateX(10px);
+}
+
+.nav-link::after {
+  content: "]";
+  right: 0;
+  transform: translateX(-10px);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--theme-text);
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  opacity: 1;
+  transform: translateX(-5px);
+}
+
+.val-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(var(--theme-text-rgb), 0.2);
+  background: transparent;
+  color: var(--theme-text);
+  font-family: "Teko", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.val-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #ff4655;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.val-btn:hover {
+  border-color: #ff4655;
+}
+
+.val-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.val-btn-active {
+  border-color: #ff4655;
+  background: #ff4655;
+  color: #ffffff !important;
+}
+
+.clip-corner-xs {
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
-@utility clip-corner-md {
+
+.clip-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.clip-corner-md {
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
 }
-@utility clip-corner {
+
+.clip-corner {
   clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
 }
-@utility clip-corner-lg {
+
+.clip-corner-lg {
   clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
 }
 
-@utility animate-page-fade {
+.animate-page-fade {
   animation: pageFade 0.4s ease;
 }
-@utility animate-modal-pop {
+
+.animate-modal-pop {
   animation: modalPop 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
-@utility animate-fade-in {
-  animation: pageFade 0.2s;
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease;
 }
-@utility animate-glitch-slide {
-  animation: glitchSlide 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+
+.hero-collage-wrap {
+  pointer-events: none;
+}
+
+.hero-collage-grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-collage-card {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid rgba(var(--theme-text-rgb), 0.12);
+  background:
+    linear-gradient(180deg, rgba(var(--theme-card-rgb), 0.12), rgba(var(--theme-card-rgb), 0.02)),
+    radial-gradient(circle at top, color-mix(in srgb, var(--hero-accent) 22%, transparent), transparent 65%);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  backdrop-filter: blur(10px);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.hero-collage-aura {
+  position: absolute;
+  inset: auto auto -10% 50%;
+  width: 70%;
+  height: 35%;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--hero-glow) 46%, transparent), transparent 72%);
+  filter: blur(18px);
+  opacity: 0.9;
+}
+
+.hero-collage-portrait {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 18px 50px rgba(0, 0, 0, 0.35));
+}
+
+.hero-collage-label {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-transform: uppercase;
+}
+
+.hero-collage-role {
+  color: var(--hero-accent);
+  font-family: "Teko", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+}
+
+.hero-collage-name {
+  color: #ffffff;
+  font-family: "Teko", sans-serif;
+  font-size: 1.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.hero-collage-center {
+  top: 10%;
+  left: 28%;
+  width: 34%;
+  height: 76%;
+  z-index: 5;
+}
+
+.hero-collage-left {
+  top: 22%;
+  left: 6%;
+  width: 28%;
+  height: 58%;
+  z-index: 3;
+}
+
+.hero-collage-right {
+  top: 21%;
+  right: 5%;
+  width: 28%;
+  height: 60%;
+  z-index: 3;
+}
+
+.hero-collage-top {
+  top: 2%;
+  right: 22%;
+  width: 23%;
+  height: 38%;
+  z-index: 2;
+}
+
+.hero-collage-bottom {
+  bottom: 0;
+  left: 20%;
+  width: 24%;
+  height: 34%;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    background: rgba(var(--theme-dark-rgb), 0.98);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(var(--theme-text-rgb), 0.08);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+  }
+
+  .nav-links.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hero-collage-center {
+    left: 25%;
+    width: 40%;
+    height: 74%;
+  }
+
+  .hero-collage-left {
+    left: 0;
+    width: 34%;
+    height: 52%;
+  }
+
+  .hero-collage-right {
+    right: 0;
+    width: 34%;
+    height: 54%;
+  }
+
+  .hero-collage-top {
+    right: 18%;
+    width: 28%;
+    height: 32%;
+  }
+
+  .hero-collage-bottom {
+    left: 12%;
+    width: 30%;
+    height: 28%;
+  }
+
+  .hero-collage-label {
+    left: 14px;
+    bottom: 14px;
+  }
+
+  .hero-collage-name {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-collage-wrap {
+    margin-top: 12px;
+  }
+
+  .hero-collage-center {
+    top: 12%;
+    left: 23%;
+    width: 46%;
+    height: 70%;
+  }
+
+  .hero-collage-left {
+    top: 25%;
+    left: -4%;
+    width: 38%;
+    height: 46%;
+  }
+
+  .hero-collage-right {
+    top: 24%;
+    right: -3%;
+    width: 38%;
+    height: 47%;
+  }
+
+  .hero-collage-top {
+    top: 4%;
+    right: 13%;
+    width: 32%;
+    height: 26%;
+  }
+
+  .hero-collage-bottom {
+    bottom: 1%;
+    left: 6%;
+    width: 36%;
+    height: 24%;
+  }
+
+  .hero-collage-role {
+    font-size: 0.72rem;
+  }
+
+  .hero-collage-name {
+    font-size: 1.1rem;
+  }
 }
 
 @keyframes loadSlide {
-  0% { left: -40%; }
-  100% { left: 100%; }
+  0% {
+    left: -40%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
+
 @keyframes pageFade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes modalPop {
-  from { transform: scale(0.95); opacity: 0; filter: blur(4px); }
-  to { transform: scale(1); opacity: 1; filter: blur(0); }
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
 }
-@keyframes glitchSlide {
-  0% { opacity: 0; transform: translateX(-40px) skewX(20deg); }
-  60% { opacity: 1; transform: translateX(10px) skewX(-10deg); }
-  100% { opacity: 1; transform: translateX(0) skewX(0); }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

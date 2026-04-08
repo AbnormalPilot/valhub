@@ -221,7 +221,7 @@ function attachListeners() {
 }
 
 window.handleShare = (weaponName) => {
-  const text = \`Check out \${weaponName} in VALORANT!\\n\${window.location.href}\`;
+  const text = `Check out ${weaponName} in VALORANT!\n${window.location.href}`;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('share-btn');
     if (btn) {
@@ -244,26 +244,26 @@ function renderModal() {
 
   let statsHtml = '';
   if (wStats) {
-    statsHtml += \`
+    statsHtml += `
       <div class="grid grid-cols-3 gap-4 mb-[30px] max-md:grid-cols-2">
-        \${[
+        ${[
           { val: wStats.fireRate, lbl: 'Fire Rate' },
           { val: wStats.magazineSize, lbl: 'Magazine' },
-          { val: \`\${wStats.reloadTimeSeconds}s\`, lbl: 'Reload' },
-          { val: \`\${wStats.equipTimeSeconds}s\`, lbl: 'Equip Time' },
+          { val: `${wStats.reloadTimeSeconds}s`, lbl: 'Reload' },
+          { val: `${wStats.equipTimeSeconds}s`, lbl: 'Equip Time' },
           { val: wStats.firstBulletAccuracy, lbl: '1st Bullet Acc' },
           { val: wStats.wallPenetration?.split('::')[1] || '-', lbl: 'Wall Pen' },
-        ].map(stat => \`
+        ].map(stat => `
           <div class="bg-white/[0.03] border border-val-text/8 p-4 text-center rounded">
-            <span class="font-teko text-[1.6rem] text-val-red block">\${stat.val}</span>
-            <span class="text-[0.7rem] tracking-[1px] text-val-dim uppercase mt-1">\${stat.lbl}</span>
+            <span class="font-teko text-[1.6rem] text-val-red block">${stat.val}</span>
+            <span class="text-[0.7rem] tracking-[1px] text-val-dim uppercase mt-1">${stat.lbl}</span>
           </div>
-        \`).join('')}
+        `).join('')}
       </div>
-    \`;
+    `;
 
     if (wStats.damageRanges && wStats.damageRanges.length > 0) {
-      statsHtml += \`
+      statsHtml += `
         <h3 class="font-teko text-[1.3rem] tracking-[3px] mb-3.5">DAMAGE RANGES</h3>
         <table class="w-full border-collapse text-sm">
           <thead>
@@ -275,17 +275,17 @@ function renderModal() {
             </tr>
           </thead>
           <tbody>
-            \${wStats.damageRanges.map(range => \`
+            ${wStats.damageRanges.map(range => `
               <tr>
-                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8">\${range.rangeStartMeters}-\${range.rangeEndMeters}m</td>
-                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8 text-val-red font-semibold">\${Math.round(range.headDamage)}</td>
-                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8 text-val-text">\${Math.round(range.bodyDamage)}</td>
-                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8">\${Math.round(range.legDamage)}</td>
+                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8">${range.rangeStartMeters}-${range.rangeEndMeters}m</td>
+                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8 text-val-red font-semibold">${Math.round(range.headDamage)}</td>
+                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8 text-val-text">${Math.round(range.bodyDamage)}</td>
+                <td class="py-2.5 px-3.5 text-center border-b border-val-text/8">${Math.round(range.legDamage)}</td>
               </tr>
-            \`).join('')}
+            `).join('')}
           </tbody>
         </table>
-      \`;
+      `;
     }
   }
 
@@ -293,27 +293,27 @@ function renderModal() {
   if (weapon.skins) {
     const validSkins = weapon.skins.filter(s => s.displayIcon != null).slice(0, 8);
     if (validSkins.length > 0) {
-      skinsHtml = \`
+      skinsHtml = `
         <h3 class="font-teko text-[1.3rem] tracking-[3px] mt-6 mb-3.5">SKINS</h3>
         <div class="flex gap-3 overflow-x-auto pb-2.5">
-          \${validSkins.map(skin => \`
-            <div class="shrink-0 w-[140px] h-20 bg-val-card border border-val-text/8 rounded flex items-center justify-center" title="\${skin.displayName}">
-              <img src="\${skin.displayIcon}" alt="\${skin.displayName}" class="max-w-[120px] max-h-[60px] object-contain" />
+          ${validSkins.map(skin => `
+            <div class="shrink-0 w-[140px] h-20 bg-val-card border border-val-text/8 rounded flex items-center justify-center" title="${skin.displayName}">
+              <img src="${skin.displayIcon}" alt="${skin.displayName}" class="max-w-[120px] max-h-[60px] object-contain" />
             </div>
-          \`).join('')}
+          `).join('')}
         </div>
-      \`;
+      `;
     }
   }
 
-  container.innerHTML = \`
+  container.innerHTML = `
     <div class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-[8px] flex items-center justify-center p-5 animate-fade-in" id="modal-backdrop">
       <div class="bg-val-modal border border-val-text/15 max-w-[800px] w-full max-h-[85vh] overflow-y-auto relative clip-corner-lg animate-modal-pop" id="modal-content">
         <div class="absolute top-4 right-4 flex gap-2 z-10">
           <button 
             id="share-btn"
             class="h-9 px-4 font-teko text-sm tracking-[2px] border transition-all duration-300 flex items-center gap-2 cursor-pointer bg-val-card border-val-text/8 text-val-muted hover:border-val-red hover:text-val-text"
-            onclick="handleShare('\${weapon.displayName}')"
+            onclick="handleShare('${weapon.displayName}')"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -324,20 +324,20 @@ function renderModal() {
         </div>
 
         <div class="p-10 flex items-center justify-center border-b border-val-text/8" style="background: linear-gradient(135deg, var(--theme-card), var(--theme-modal))">
-          \${weapon.displayIcon ? \`<img src="\${weapon.displayIcon}" alt="" class="max-h-[120px]" style="filter: var(--icon-filter)" />\` : ''}
+          ${weapon.displayIcon ? `<img src="${weapon.displayIcon}" alt="" class="max-h-[120px]" style="filter: var(--icon-filter)" />` : ''}
         </div>
 
         <div class="p-[30px]">
-          <div class="font-teko text-sm tracking-[4px] text-val-red uppercase mb-1.5">\${getCat(weapon)}</div>
-          <h2 class="font-teko text-5xl font-bold tracking-[4px] uppercase leading-none mb-2.5">\${weapon.displayName}</h2>
-          \${getCost(weapon) > 0 ? \`<div class="font-teko text-[1.4rem] text-val-green mb-6">⊙ \${getCost(weapon)} Credits</div>\` : ''}
+          <div class="font-teko text-sm tracking-[4px] text-val-red uppercase mb-1.5">${getCat(weapon)}</div>
+          <h2 class="font-teko text-5xl font-bold tracking-[4px] uppercase leading-none mb-2.5">${weapon.displayName}</h2>
+          ${getCost(weapon) > 0 ? `<div class="font-teko text-[1.4rem] text-val-green mb-6">⊙ ${getCost(weapon)} Credits</div>` : ''}
 
-          \${statsHtml}
-          \${skinsHtml}
+          ${statsHtml}
+          ${skinsHtml}
         </div>
       </div>
     </div>
-  \`;
+  `;
 
   document.getElementById('close-modal-btn').addEventListener('click', () => {
     selectedWeapon = null;
@@ -355,11 +355,11 @@ function renderModal() {
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
   
-  document.getElementById('app-content').innerHTML = \`
+  document.getElementById('app-content').innerHTML = `
     <div class="text-center py-[60px] px-5 text-val-dim pt-[100px]">
       <p class="font-teko text-[1.4rem] tracking-[3px] mt-2.5">Loading weapons...</p>
     </div>
-  \`;
+  `;
   
   loadData();
 });

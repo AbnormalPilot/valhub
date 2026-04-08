@@ -5,16 +5,21 @@ export function initApp() {
 }
 
 function injectLayout() {
-  const currentPath = window.location.pathname;
+  const currentPage = getCurrentPage();
+  const homeHref = getPageHref('/');
+  const agentsHref = getPageHref('/agents/');
+  const mapsHref = getPageHref('/maps/');
+  const weaponsHref = getPageHref('/weapons/');
+  const ranksHref = getPageHref('/ranks/');
   const isActive = (path) => {
-    if (path === '/' && (currentPath === '/' || currentPath.endsWith('index.html'))) return 'active';
-    if (path !== '/' && currentPath.includes(path)) return 'active';
+    if (path === '/' && currentPage === '/') return 'active';
+    if (path !== '/' && currentPage === path) return 'active';
     return '';
   };
 
   const navHtml = `
     <nav class="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-10 h-[70px] bg-[#0f1923]/95 backdrop-blur-[12px] border-b border-white/10 max-md:px-5">
-      <a href="/" class="font-teko text-[2rem] font-bold tracking-[2px] cursor-pointer">
+      <a href="${homeHref}" class="font-teko text-[2rem] font-bold tracking-[2px] cursor-pointer">
         <span class="text-[#ff4655]">VAL</span><span class="text-[#ece8e1]">HUB</span>
       </a>
 
@@ -25,11 +30,11 @@ function injectLayout() {
       </button>
 
       <ul id="nav-links" class="nav-links">
-        <li><a href="/" class="nav-link ${isActive('/')}">HOME</a></li>
-        <li><a href="/agents.html" class="nav-link ${isActive('agents')}">AGENTS</a></li>
-        <li><a href="/maps.html" class="nav-link ${isActive('maps')}">MAPS</a></li>
-        <li><a href="/weapons.html" class="nav-link ${isActive('weapons')}">WEAPONS</a></li>
-        <li><a href="/ranks.html" class="nav-link ${isActive('ranks')}">RANKS</a></li>
+        <li><a href="${homeHref}" class="nav-link ${isActive('/')}">HOME</a></li>
+        <li><a href="${agentsHref}" class="nav-link ${isActive('/agents/')}">AGENTS</a></li>
+        <li><a href="${mapsHref}" class="nav-link ${isActive('/maps/')}">MAPS</a></li>
+        <li><a href="${weaponsHref}" class="nav-link ${isActive('/weapons/')}">WEAPONS</a></li>
+        <li><a href="${ranksHref}" class="nav-link ${isActive('/ranks/')}">RANKS</a></li>
         <li>
           <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#1c2b3a] border border-white/10 text-[#ece8e1] cursor-pointer transition-all duration-300 hover:border-[#ff4655] hover:text-[#ff4655]" title="Toggle Theme">
             <svg id="theme-icon-dark" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,9 +73,11 @@ function initTheme() {
   if (currentTheme === 'light') {
     document.body.classList.add('light-mode');
     if (iconLight) iconLight.classList.remove('hidden');
+    if (toggleBtn) toggleBtn.title = 'Switch to dark mode';
   } else {
     document.body.classList.remove('light-mode');
     if (iconDark) iconDark.classList.remove('hidden');
+    if (toggleBtn) toggleBtn.title = 'Switch to light mode';
   }
 
   // Toggle handler
@@ -124,4 +131,38 @@ export function toggleFavorite(id) {
 
 export function isFavorited(id) {
   return getFavorites().includes(id);
+}
+
+export function getPageHref(path) {
+  const prefix = getBasePrefix();
+
+  if (path === '/') {
+    return prefix || './';
+  }
+
+  return `${prefix}${path.replace(/^\//, '')}`;
+}
+
+function getCurrentPage() {
+  let path = window.location.pathname;
+
+  if (!path || path === '/index.html') {
+    return '/';
+  }
+
+  if (path.endsWith('.html')) {
+    if (path === '/agents.html') return '/agents/';
+    if (path === '/maps.html') return '/maps/';
+    if (path === '/weapons.html') return '/weapons/';
+    if (path === '/ranks.html') return '/ranks/';
+    return '/';
+  }
+
+  return path.endsWith('/') ? path : `${path}/`;
+}
+
+function getBasePrefix() {
+  const path = window.location.pathname;
+  const nestedRoutePattern = /^\/(agents|maps|weapons|ranks)(\/|$)/;
+  return nestedRoutePattern.test(path) ? '../' : '';
 }

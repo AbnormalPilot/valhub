@@ -1,4 +1,4 @@
-import { initApp, isFavorited, toggleFavorite } from './main.js';
+import { getPageHref, initApp, isFavorited, toggleFavorite } from './main.js';
 
 let agents = [];
 let maps = [];
@@ -37,10 +37,27 @@ function render() {
 
   let shuffled = [...agents].sort(() => 0.5 - Math.random());
   const featured = shuffled.slice(0, 4);
+  const heroAgents = agents
+    .filter(agent => agent.fullPortrait)
+    .slice(0, 5);
 
-  const heroPortraits = agents.slice(0, 5).map((agent, i) => `
-    <img src="${agent.fullPortrait}" alt="${agent.displayName}" class="hero-portrait absolute h-[75%] max-w-none object-contain opacity-40 brightness-[0.6]" style="right: ${i * 15}%; z-index: ${5 - i}; transform: translateX(${i * 50}px) scale(${1 - i * 0.1});" />
-  `).join('');
+  const collageSlots = ['center', 'left', 'right', 'top', 'bottom'];
+  const heroPortraits = heroAgents.map((agent, i) => {
+    const colors = agent.backgroundGradientColors || [];
+    const accent = colors[0] ? `#${colors[0].slice(0, 6)}` : '#ff4655';
+    const glow = colors[1] ? `#${colors[1].slice(0, 6)}` : accent;
+
+    return `
+      <article class="hero-collage-card hero-collage-${collageSlots[i] || `extra-${i}`}" style="--hero-accent:${accent}; --hero-glow:${glow};">
+        <div class="hero-collage-aura"></div>
+        <img src="${agent.fullPortrait}" alt="${agent.displayName}" class="hero-collage-portrait" />
+        <div class="hero-collage-label">
+          <span class="hero-collage-role">${agent.role?.displayName || 'Agent'}</span>
+          <span class="hero-collage-name">${agent.displayName}</span>
+        </div>
+      </article>
+    `;
+  }).join('');
 
   const statsHtml = [
     { num: agents.length, label: 'AGENTS' },
@@ -62,7 +79,7 @@ function render() {
       : 'background: var(--theme-card)';
       
     return `
-      <div class="group relative bg-val-card border border-val-text/8 overflow-hidden cursor-pointer transition-all duration-300 clip-corner hover:-translate-y-1.5 hover:border-val-red hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)]" onclick="window.location.href='/agents.html?id=${agent.uuid}'">
+      <div class="group relative bg-val-card border border-val-text/8 overflow-hidden cursor-pointer transition-all duration-300 clip-corner hover:-translate-y-1.5 hover:border-val-red hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)]" onclick="window.location.href='${getPageHref('/agents/')}?id=${agent.uuid}'">
         <button class="fav-btn absolute top-2.5 right-2.5 z-[5] text-xl cursor-pointer bg-black/50 border-none rounded-full w-9 h-9 flex items-center justify-center transition-all duration-300 hover:scale-[1.15] ${favorited ? 'opacity-100' : 'opacity-70 hover:opacity-100'}" data-id="${agent.uuid}">
           ${favorited ? '❤️' : '🤍'}
         </button>
@@ -80,19 +97,24 @@ function render() {
 
   container.innerHTML = `
     <div class="bg-[#0f1923]">
-      <div class="relative min-h-[90vh] flex items-end justify-start overflow-hidden bg-[#0f1923]">
-        <div class="absolute bottom-0 right-0 h-full w-full overflow-hidden pointer-events-none">
-          ${heroPortraits}
+      <div class="relative min-h-[90vh] flex items-end justify-start overflow-hidden bg-[#0f1923] max-lg:block">
+        <div class="hero-collage-wrap absolute inset-y-0 right-0 w-[58%] overflow-hidden max-lg:relative max-lg:inset-auto max-lg:w-full max-lg:h-[520px] max-md:h-[420px]">
+          <div class="hero-collage-grid">
+            ${heroPortraits}
+          </div>
         </div>
         <div class="absolute inset-0 bg-gradient-to-t from-[#0f1923] via-[#0f1923]/70 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#0f1923] via-[#0f1923]/80 to-transparent"></div>
-        <div class="relative z-10 text-left px-[60px] pb-20 max-md:px-5 max-md:pb-[60px] pt-[120px]">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0f1923] via-[#0f1923]/82 to-transparent max-lg:bg-gradient-to-t"></div>
+        <div class="relative z-10 text-left px-[60px] pb-20 pt-[120px] max-w-[720px] max-md:px-5 max-md:pb-[60px]">
           <p class="font-teko text-xl tracking-[6px] text-[#ff4655] mb-3">DEFY THE LIMITS</p>
           <h1 class="font-teko text-[6rem] font-bold leading-[0.95] tracking-[4px] mb-5 text-[#ece8e1] max-lg:text-[4.5rem] max-md:text-[3.5rem] max-[480px]:text-[2.5rem]">
             VALORANT<br />
             <span class="text-[#ff4655] text-[4.5rem] max-lg:text-[3.5rem] max-md:text-[2.5rem] max-[480px]:text-[2rem]">INFO HUB</span>
           </h1>
-          <a href="/agents.html" class="inline-block font-teko text-[1.15rem] font-semibold tracking-[3px] py-3.5 px-10 bg-[#ff4655] text-white border-none cursor-pointer transition-all duration-300 uppercase clip-corner-md hover:bg-[#d63845] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,70,85,0.3)]">
+          <p class="max-w-[520px] text-[1rem] leading-7 text-[#c5c0b8] mb-8 max-md:text-[0.95rem]">
+            Explore agents, weapons, maps, and ranks through a polished VALORANT companion built with live API data, interactive filters, and a fast browsing experience.
+          </p>
+          <a href="${getPageHref('/agents/')}" class="inline-block font-teko text-[1.15rem] font-semibold tracking-[3px] py-3.5 px-10 bg-[#ff4655] text-white border-none cursor-pointer transition-all duration-300 uppercase clip-corner-md hover:bg-[#d63845] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,70,85,0.3)]">
             EXPLORE AGENTS
           </a>
         </div>

@@ -1,124 +1,128 @@
-# VALORANT // INFO HUB
+# VALORANT Info Hub
 
-A web application that serves as a companion hub for the game VALORANT, allowing users to explore agents, maps, weapons, and competitive ranks all in one place.
+A multi-page web application built with HTML, CSS, JavaScript, and Tailwind CSS that uses the public VALORANT API to display agents, maps, weapons, and competitive ranks.
 
-<p align="center">
-  <img src="https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/fullportrait.png" width="120" />
-  <img src="https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/fullportrait.png" width="120" />
-  <img src="https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/fullportrait.png" width="120" />
-  <img src="https://media.valorant-api.com/agents/f94c3b30-42be-e959-889c-5aa313dba261/fullportrait.png" width="120" />
-  <img src="https://media.valorant-api.com/agents/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc/fullportrait.png" width="120" />
-</p>
+## Project Purpose
 
-## Purpose
+This project was created to demonstrate:
 
-VALORANT has a large roster of agents, a growing map pool, and a wide arsenal of weapons — but there is no single lightweight place to browse and compare everything at a glance. This project solves that by pulling live data from a public API and presenting it in a clean, searchable, and filterable interface. It is built as a single-page application using modern frontend technologies.
+- API integration using `fetch()`
+- dynamic UI rendering with JavaScript
+- search, filter, and sort features using array higher-order functions
+- responsive web design using Tailwind CSS and custom CSS
 
-## API
+## Public API Used
 
-This project uses the **[valorant-api.com](https://valorant-api.com)** public REST API. It is free, requires no authentication or API key, and returns JSON data for all in-game content.
+This project uses the free public API from [valorant-api.com](https://valorant-api.com/).
 
-### Endpoints used
+### Endpoints
 
-| Endpoint | Purpose |
-|----------|---------|
-| `GET /v1/agents?isPlayableCharacter=true` | Fetch all playable agents with abilities, portraits, and role info |
-| `GET /v1/maps` | Fetch all maps with splash art, coordinates, descriptions, and minimaps |
-| `GET /v1/weapons` | Fetch all weapons with stats, damage ranges, costs, and skin previews |
-| `GET /v1/competitivetiers` | Fetch all competitive rank tiers with icons and division groupings |
+- `https://valorant-api.com/v1/agents?isPlayableCharacter=true`
+- `https://valorant-api.com/v1/maps`
+- `https://valorant-api.com/v1/weapons`
+- `https://valorant-api.com/v1/competitivetiers`
 
-### Example response (agent)
+## Features
 
-```json
-{
-  "uuid": "e370fa57-4757-3604-3648-499e1f642d3f",
-  "displayName": "Gekko",
-  "description": "Gekko the Angeleno leads a tight-knit crew of...",
-  "role": { "displayName": "Initiator" },
-  "abilities": [...],
-  "displayIcon": "https://media.valorant-api.com/agents/.../displayicon.png",
-  "fullPortrait": "https://media.valorant-api.com/agents/.../fullportrait.png"
-}
-```
+- Home page with hero section and live stats
+- Agents page with:
+  - search by name
+  - filter by role
+  - sort by name or role
+  - favorites saved in `localStorage`
+- Maps page with:
+  - search by name
+  - filter by map type
+  - alphabetical sorting
+  - detail modal
+- Weapons page with:
+  - search by name
+  - filter by category
+  - sorting by name, cost, fire rate, damage, and magazine size
+  - favorites saved in `localStorage`
+  - detail modal
+- Ranks page with competitive tiers grouped by division
+- Dark mode / light mode toggle
+- Responsive layout for mobile, tablet, and desktop
+- Loading and error states for API requests
 
-## Planned Features
+## Array HOFs Used
 
-### Search
-- Real-time text search across agents by name
-- Real-time text search across weapons by name
-- Real-time text search across maps by name
+The project uses array higher-order functions instead of traditional loops for the required features:
 
-### Filtering
-- Filter agents by role (Duelist, Initiator, Controller, Sentinel)
-- Filter weapons by category (Rifle, SMG, Shotgun, Sniper, Heavy, Sidearm)
-- Filter agents by favorites (saved to localStorage)
+- `map()` for rendering cards and sections
+- `filter()` for search and category filtering
+- `sort()` for alphabetical and numeric sorting
+- `reduce()` for grouping rank tiers
+- `find()` for modal item selection
 
-### Sorting
-- Sort weapons by name, cost, fire rate, body damage, or magazine size
-- Toggle ascending/descending sort direction
+## Tech Stack
 
-### Detail Views
-- Agent modal with full portrait, description, role, and all four abilities
-- Weapon modal with full stats grid, damage range table, and skin gallery
-- Map modal with splash image, coordinates, narrative description, and minimap
-- Rank page with all tiers grouped by division (Iron through Radiant)
-
-### Other
-- Favorites system for agents and weapons, persisted in localStorage
-- Animated loading screen on initial visit
-- Responsive layout from desktop down to mobile (480px)
-- Hero banner on the home page with dynamic agent portraits from the API
-- Stats overview showing total counts of agents, maps, and weapons
-
-## Technologies
-
-| Technology | Version | Role |
-|------------|---------|------|
-| React | 19 | UI framework and component architecture |
-| React Router | 7 | Client-side routing between pages |
-| Tailwind CSS | 4 | Utility-first styling with custom theme |
-| Vite | 8 | Development server and production bundler |
-| ESLint | 9 | Code linting and quality checks |
+- HTML5
+- CSS3
+- JavaScript (ES Modules)
+- [Tailwind CSS CDN](https://tailwindcss.com/)
+- VALORANT Public API
 
 ## Project Structure
 
-```
-src/
-├── components/
-│   ├── AgentCard.jsx       # Reusable agent card with gradient, image, and fav button
-│   └── AgentModal.jsx      # Detail modal for a single agent and their abilities
-├── pages/
-│   ├── Home.jsx            # Hero banner, stats row, featured agents
-│   ├── Agents.jsx          # Agent grid with search, role filter, favorites filter
-│   ├── Maps.jsx            # Map grid with search, detail modal with minimap
-│   ├── Weapons.jsx         # Weapon grid with search, category filter, sorting, detail modal
-│   └── Ranks.jsx           # Competitive tiers grouped by division
-├── App.jsx                 # Root layout with navbar, routing, and footer
-├── main.jsx                # Entry point, renders App inside BrowserRouter
-└── index.css               # Tailwind config, custom utilities, and base styles
-```
-
-## Setup and Run
-
-```bash
-# clone the repository
-git clone https://github.com/AbnormalPilot/valhub.git
-cd valorant
-
-# install dependencies
-npm install
-
-# start the development server
-npm run dev
+```text
+valorant/
+├── index.html
+├── agents.html
+├── maps.html
+├── weapons.html
+├── ranks.html
+├── public/
+├── src/
+│   ├── index.css
+│   ├── assets/
+│   └── js/
+│       ├── main.js
+│       ├── home.js
+│       ├── agents.js
+│       ├── maps.js
+│       ├── weapons.js
+│       └── ranks.js
+└── README.md
 ```
 
-The app will be available at [http://localhost:5173](http://localhost:5173).
+## How to Run
 
-### Available Scripts
+Because this is now a plain static project, no build tool is required.
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start the Vite dev server with hot module replacement |
-| `npm run build` | Create an optimized production build in `dist/` |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint to check for code issues |
+1. Clone the repository.
+2. Open the folder in VS Code.
+3. Run it with a simple static server such as Live Server.
+
+You can also open `index.html` directly, but using a local server is recommended for a smoother browser experience.
+
+## Milestone Coverage
+
+### Milestone 1
+- project idea chosen
+- VALORANT public API selected
+- README created
+- project structure planned
+
+### Milestone 2
+- API calls implemented with `fetch()`
+- live API data displayed dynamically
+- loading states added
+- responsive layout completed
+
+### Milestone 3
+- search implemented
+- filtering implemented
+- sorting implemented
+- favorites interaction added
+- dark/light mode added
+
+### Milestone 4
+- codebase cleaned and documented
+- ready for deployment on GitHub Pages, Netlify, or Vercel static hosting
+
+## Notes
+
+- Favorites and theme choice are stored with `localStorage`.
+- The project uses plain JavaScript modules and does not require React or Vite.

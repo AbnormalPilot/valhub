@@ -190,7 +190,7 @@ function attachListeners() {
 }
 
 window.handleShare = (agentName) => {
-  const text = \`Check out \${agentName} in VALORANT!\\n\${window.location.href}\`;
+  const text = `Check out ${agentName} in VALORANT!\n${window.location.href}`;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('share-btn');
     if (btn) {
@@ -211,30 +211,30 @@ function renderModal() {
   const agent = selectedAgent;
   const colors = agent.backgroundGradientColors || [];
   const bg = colors.length >= 2
-    ? \`background: linear-gradient(135deg, #\${colors[0].slice(0,6)}, #\${colors[1].slice(0,6)})\`
+    ? `background: linear-gradient(135deg, #${colors[0].slice(0,6)}, #${colors[1].slice(0,6)})`
     : '';
 
   const abilitiesHtml = (agent.abilities || [])
     .filter(a => a.displayName)
-    .map(ability => \`
+    .map(ability => `
       <div class="flex gap-3.5 p-3.5 bg-white/[0.03] border border-val-text/8 rounded mb-3 transition-colors duration-300 hover:border-val-text/15">
-        \${ability.displayIcon ? \`<img src="\${ability.displayIcon}" alt="" class="w-11 h-11 object-contain brightness-0 invert shrink-0" />\` : ''}
+        ${ability.displayIcon ? `<img src="${ability.displayIcon}" alt="" class="w-11 h-11 object-contain brightness-0 invert shrink-0" />` : ''}
         <div>
-          <div class="font-teko text-lg font-semibold tracking-[2px] uppercase">\${ability.displayName}</div>
-          <div class="text-[0.7rem] tracking-[2px] text-val-red uppercase mt-[2px] mb-1.5">\${ability.slot}</div>
-          <div class="text-sm text-val-muted leading-[1.5]">\${ability.description}</div>
+          <div class="font-teko text-lg font-semibold tracking-[2px] uppercase">${ability.displayName}</div>
+          <div class="text-[0.7rem] tracking-[2px] text-val-red uppercase mt-[2px] mb-1.5">${ability.slot}</div>
+          <div class="text-sm text-val-muted leading-[1.5]">${ability.description}</div>
         </div>
       </div>
-    \`).join('');
+    `).join('');
 
-  container.innerHTML = \`
+  container.innerHTML = `
     <div class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-[8px] flex items-center justify-center p-5 animate-fade-in" id="modal-backdrop">
       <div class="bg-val-modal border border-val-text/15 max-w-[650px] w-full max-h-[85vh] overflow-y-auto relative clip-corner-lg animate-modal-pop" id="modal-content">
         <div class="absolute top-4 right-4 flex gap-2 z-10">
           <button 
             id="share-btn"
             class="h-9 px-4 font-teko text-sm tracking-[2px] border transition-all duration-300 flex items-center gap-2 cursor-pointer bg-val-card border-val-text/8 text-val-muted hover:border-val-red hover:text-val-text"
-            onclick="handleShare('\${agent.displayName}')"
+            onclick="handleShare('${agent.displayName}')"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -245,24 +245,24 @@ function renderModal() {
         </div>
 
         <div class="relative h-[300px] overflow-hidden flex items-center justify-center">
-          <div class="absolute inset-0 opacity-20" style="\${bg}"></div>
-          \${agent.fullPortrait ? \`<img src="\${agent.fullPortrait}" alt="\${agent.displayName}" class="relative z-[1] h-[280px] object-contain" />\` : ''}
+          <div class="absolute inset-0 opacity-20" style="${bg}"></div>
+          ${agent.fullPortrait ? `<img src="${agent.fullPortrait}" alt="${agent.displayName}" class="relative z-[1] h-[280px] object-contain" />` : ''}
         </div>
 
         <div class="p-[30px]">
           <div class="font-teko text-sm tracking-[4px] text-val-red uppercase mb-1.5 flex items-center gap-2">
-            \${agent.role?.displayIcon ? \`<img src="\${agent.role.displayIcon}" class="w-[18px] h-[18px]" />\` : ''}
-            \${agent.role?.displayName}
+            ${agent.role?.displayIcon ? `<img src="${agent.role.displayIcon}" class="w-[18px] h-[18px]" />` : ''}
+            ${agent.role?.displayName}
           </div>
-          <h2 class="font-teko text-5xl font-bold tracking-[4px] uppercase leading-none mb-4">\${agent.displayName}</h2>
-          <p class="text-val-muted text-[0.95rem] leading-[1.7] mb-6">\${agent.description}</p>
+          <h2 class="font-teko text-5xl font-bold tracking-[4px] uppercase leading-none mb-4">${agent.displayName}</h2>
+          <p class="text-val-muted text-[0.95rem] leading-[1.7] mb-6">${agent.description}</p>
 
           <h3 class="font-teko text-[1.4rem] tracking-[3px] mb-4">ABILITIES</h3>
-          \${abilitiesHtml}
+          ${abilitiesHtml}
         </div>
       </div>
     </div>
-  \`;
+  `;
 
   document.getElementById('close-modal-btn').addEventListener('click', () => {
     selectedAgent = null;
@@ -281,11 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initApp();
   
   // Show initial loading
-  document.getElementById('app-content').innerHTML = \`
+  document.getElementById('app-content').innerHTML = `
     <div class="text-center py-15 px-5 text-val-dim pt-[100px]">
       <p class="font-teko text-[1.4rem] tracking-[3px] mt-2.5">Loading agents...</p>
     </div>
-  \`;
+  `;
   
   // Handle URL params for targeted agent
   const params = new URLSearchParams(window.location.search);
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedAgent = agents.find(a => a.uuid === targetId);
         if (selectedAgent) renderModal();
         clearInterval(checkInterval);
-        history.replaceState({}, '', '/agents.html');
+        history.replaceState({}, '', '/agents/');
       }
     }, 100);
   }
