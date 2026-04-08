@@ -1,15 +1,33 @@
 @import "tailwindcss";
 
+:root {
+  --theme-dark: #0f1923;
+  --theme-card: #1c2b3a;
+  --theme-modal: #1a2634;
+  --theme-text: #ece8e1;
+  --theme-muted: #8b978f;
+  --theme-dim: #5a6670;
+}
+
+.light-mode {
+  --theme-dark: #f0f3f5;
+  --theme-card: #ffffff;
+  --theme-modal: #ffffff;
+  --theme-text: #1a2634;
+  --theme-muted: #4a5568;
+  --theme-dim: #718096;
+}
+
 @theme {
-  --color-val-dark: #0f1923;
-  --color-val-card: #1c2b3a;
-  --color-val-modal: #1a2634;
+  --color-val-dark: var(--theme-dark);
+  --color-val-card: var(--theme-card);
+  --color-val-modal: var(--theme-modal);
   --color-val-red: #ff4655;
   --color-val-red-dark: #d63845;
-  --color-val-green: #17ecc5;
-  --color-val-text: #ece8e1;
-  --color-val-muted: #8b978f;
-  --color-val-dim: #5a6670;
+  --color-val-green: #37b39d;
+  --color-val-text: var(--theme-text);
+  --color-val-muted: var(--theme-muted);
+  --color-val-dim: var(--theme-dim);
   --font-family-teko: 'Teko', sans-serif;
   --font-family-dm: 'DM Sans', sans-serif;
 }

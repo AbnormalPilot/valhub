@@ -7,7 +7,16 @@ function Weapons({ favorites, toggleFavorite, isFavorited }) {
   const [sortBy, setSortBy] = useState('name')
   const [sortAsc, setSortAsc] = useState(true)
   const [selectedWeapon, setSelectedWeapon] = useState(null)
+  const [copied, setCopied] = useState(false)
   const [loading, setLoading] = useState(true)
+
+  const handleShare = (weapon) => {
+    const text = `Check out the ${weapon.displayName} in VALORANT!\n${window.location.href}`
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
 
   useEffect(() => {
     fetch('https://valorant-api.com/v1/weapons')
@@ -167,9 +176,28 @@ function Weapons({ favorites, toggleFavorite, isFavorited }) {
       {selectedWeapon && (
         <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-[8px] flex items-center justify-center p-5 animate-fade-in" onClick={() => setSelectedWeapon(null)}>
           <div className="bg-val-modal border border-val-text/15 max-w-[800px] w-full max-h-[85vh] overflow-y-auto relative clip-corner-lg animate-modal-pop" onClick={e => e.stopPropagation()}>
-            <button className="absolute top-4 right-4 w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:bg-val-red hover:text-white" onClick={() => setSelectedWeapon(null)}>✕</button>
+            <div className="absolute top-4 right-4 flex gap-2 z-10">
+              <button 
+                className={`h-9 px-4 font-teko text-sm tracking-[2px] border transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                  copied 
+                    ? 'bg-val-green text-val-dark border-val-green ring-4 ring-val-green/20' 
+                    : 'bg-val-card border-val-text/8 text-val-muted hover:border-val-red hover:text-val-text'
+                }`}
+                onClick={() => handleShare(selectedWeapon)}
+              >
+                {copied ? 'COPIED!' : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    SHARE
+                  </>
+                )}
+              </button>
+              <button className="w-9 h-9 bg-val-red/15 border border-val-red text-val-red text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-val-red hover:text-white" onClick={() => setSelectedWeapon(null)}>✕</button>
+            </div>
 
-            <div className="p-10 flex items-center justify-center border-b border-val-text/8" style={{ background: 'linear-gradient(135deg, #1c2b3a, #1a2634)' }}>
+            <div className="p-10 flex items-center justify-center border-b border-val-text/8" style={{ background: 'linear-gradient(135deg, var(--theme-card), var(--theme-modal))' }}>
               {selectedWeapon.displayIcon && <img src={selectedWeapon.displayIcon} alt="" className="max-h-[120px] brightness-0 invert" />}
             </div>
 

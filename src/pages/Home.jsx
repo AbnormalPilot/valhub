@@ -46,7 +46,7 @@ function Home({ favorites, toggleFavorite, isFavorited }) {
           ))}
         </div>
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to top, #0f1923 0%, rgba(15, 25, 35, 0.4) 50%, transparent 100%), linear-gradient(to right, rgba(15, 25, 35, 0.7) 0%, transparent 50%)'
+          background: 'linear-gradient(to top, var(--theme-dark) 0%, transparent 100%), linear-gradient(to right, var(--theme-dark) 0%, transparent 50%)'
         }}></div>
         <div className="relative z-[2] text-left px-[60px] pb-20 max-md:px-5 max-md:pb-[60px]">
           <p className="font-teko text-xl tracking-[6px] text-val-red mb-3">DEFY THE LIMITS</p>

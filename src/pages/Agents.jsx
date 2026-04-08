@@ -8,7 +8,7 @@ function Agents({ favorites, toggleFavorite, isFavorited }) {
   const [roleFilter, setRoleFilter] = useState('all')
   const [showFavsOnly, setShowFavsOnly] = useState(false)
   const [selectedAgent, setSelectedAgent] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [sortBy, setSortBy] = useState('name')
 
   useEffect(() => {
     fetch('https://valorant-api.com/v1/agents?isPlayableCharacter=true')
@@ -30,7 +30,14 @@ function Agents({ favorites, toggleFavorite, isFavorited }) {
       const matchesFav = !showFavsOnly || favorites.includes(agent.uuid)
       return matchesSearch && matchesRole && matchesFav
     })
-    .sort((a, b) => a.displayName.localeCompare(b.displayName))
+    .sort((a, b) => {
+      if (sortBy === 'role') {
+        const roleA = a.role?.displayName || ''
+        const roleB = b.role?.displayName || ''
+        if (roleA !== roleB) return roleA.localeCompare(roleB)
+      }
+      return a.displayName.localeCompare(b.displayName)
+    })
 
   const favCount = agents.filter(a => favorites.includes(a.uuid)).length
 
@@ -81,6 +88,18 @@ function Agents({ favorites, toggleFavorite, isFavorited }) {
           >
             ❤️ FAVORITES ({favCount})
           </button>
+
+          <div className="flex items-center gap-2.5 ml-auto max-md:ml-0 max-md:justify-center">
+            <label className="font-teko text-sm tracking-[2px] text-val-muted">SORT BY:</label>
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value)}
+              className="py-2.5 px-3.5 bg-val-card border border-val-text/8 text-val-text font-teko text-sm rounded cursor-pointer [&_option]:bg-val-modal focus:outline-none focus:border-val-red"
+            >
+              <option value="name">NAME</option>
+              <option value="role">ROLE</option>
+            </select>
+          </div>
         </div>
       </div>
 

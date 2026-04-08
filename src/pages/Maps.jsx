@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 function Maps() {
   const [maps, setMaps] = useState([])
   const [search, setSearch] = useState('')
+  const [sortAsc, setSortAsc] = useState(true)
+  const [typeFilter, setTypeFilter] = useState('all') // all, main, practice
   const [selectedMap, setSelectedMap] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -21,8 +23,16 @@ function Maps() {
 
   const filteredMaps = maps
     .filter(map => map.splash !== null)
-    .filter(map => map.displayName.toLowerCase().includes(search.toLowerCase()))
-    .sort((a, b) => a.displayName.localeCompare(b.displayName))
+    .filter(map => {
+      const matchesSearch = map.displayName.toLowerCase().includes(search.toLowerCase())
+      if (typeFilter === 'main') return matchesSearch && map.tacticalDescription
+      if (typeFilter === 'practice') return matchesSearch && !map.tacticalDescription
+      return matchesSearch
+    })
+    .sort((a, b) => {
+      const cmp = a.displayName.localeCompare(b.displayName)
+      return sortAsc ? cmp : -cmp
+    })
 
   return (
     <div className="pt-[100px] px-10 pb-[60px] max-w-[1400px] mx-auto min-h-screen animate-page-fade max-md:pt-[90px] max-md:px-5 max-md:pb-10">
@@ -43,6 +53,33 @@ function Maps() {
             onChange={e => setSearch(e.target.value)}
             className="w-full py-3 pr-4 pl-[42px] bg-val-card border border-val-text/8 text-val-text text-sm rounded transition-all duration-300 placeholder:text-val-dim focus:border-val-red focus:shadow-[0_0_0_3px_rgba(255,70,85,0.3)] focus:outline-none"
           />
+        </div>
+
+        <div className="flex flex-wrap gap-2 max-md:justify-center">
+          {['all', 'main', 'practice'].map(type => (
+            <button
+              key={type}
+              className={`font-teko text-sm tracking-[2px] py-2.5 px-5 cursor-pointer transition-all duration-300 clip-corner-sm max-[480px]:py-2 max-[480px]:px-3 ${
+                typeFilter === type
+                  ? 'bg-val-red text-white border border-val-red'
+                  : 'text-val-muted bg-val-card border border-val-text/8 hover:text-val-text'
+              }`}
+              onClick={() => setTypeFilter(type)}
+            >
+              {type.toUpperCase()}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2.5 ml-auto max-md:ml-0 max-md:justify-center">
+          <label className="font-teko text-sm tracking-[2px] text-val-muted text-nowrap">SORT:</label>
+          <button 
+            className="w-[38px] h-[38px] bg-val-card border border-val-text/8 text-val-text text-lg rounded cursor-pointer flex items-center justify-center transition-all duration-300 hover:border-val-red" 
+            onClick={() => setSortAsc(!sortAsc)}
+            title={sortAsc ? 'Sort Descending' : 'Sort Ascending'}
+          >
+            {sortAsc ? '↑' : '↓'}
+          </button>
         </div>
       </div>
 
