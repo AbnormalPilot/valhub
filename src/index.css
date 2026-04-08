@@ -173,6 +173,26 @@ img {
   list-style: none;
 }
 
+.nav-shell {
+  background: rgba(var(--theme-dark-rgb), 0.94);
+  border-bottom: 1px solid rgba(var(--theme-text-rgb), 0.08);
+}
+
+.nav-brand-text {
+  color: var(--theme-text);
+  display: inline-block;
+}
+
+.nav-menu-line {
+  background: var(--theme-text);
+}
+
+.theme-toggle-btn {
+  color: var(--theme-text);
+  background: var(--theme-card);
+  border: 1px solid rgba(var(--theme-text-rgb), 0.1);
+}
+
 .nav-link {
   position: relative;
   display: inline-block;
@@ -221,6 +241,56 @@ img {
 .nav-link.active::after {
   opacity: 1;
   transform: translateX(-5px);
+}
+
+.footer-shell {
+  color: var(--theme-dim);
+  background: rgba(var(--theme-dark-rgb), 0.88);
+  border-top: 1px solid rgba(var(--theme-text-rgb), 0.08);
+}
+
+.home-shell,
+.home-section {
+  background: var(--theme-dark);
+}
+
+.home-hero-overlay-vertical {
+  background: linear-gradient(to top, var(--theme-dark), rgba(var(--theme-dark-rgb), 0.72) 46%, transparent);
+}
+
+.home-hero-overlay-horizontal {
+  background: linear-gradient(to right, var(--theme-dark), rgba(var(--theme-dark-rgb), 0.88) 42%, rgba(var(--theme-dark-rgb), 0.28) 100%);
+}
+
+body.light-mode .home-shell,
+body.light-mode .home-section {
+  background:
+    radial-gradient(circle at top left, rgba(255, 70, 85, 0.08), transparent 24%),
+    linear-gradient(180deg, #f7f2ed 0%, #f4efeb 100%);
+}
+
+body.light-mode .home-hero-overlay-vertical {
+  background: linear-gradient(to top, rgba(244, 239, 235, 0.96), rgba(244, 239, 235, 0.58) 42%, rgba(244, 239, 235, 0.04) 72%, transparent);
+}
+
+body.light-mode .home-hero-overlay-horizontal {
+  background: linear-gradient(to right, rgba(244, 239, 235, 0.98), rgba(244, 239, 235, 0.88) 34%, rgba(244, 239, 235, 0.3) 62%, transparent 100%);
+}
+
+.home-kicker {
+  color: #ff4655;
+}
+
+.home-title {
+  color: var(--theme-text);
+}
+
+.home-summary {
+  color: color-mix(in srgb, var(--theme-text) 72%, var(--theme-dark) 28%);
+}
+
+body.light-mode .home-summary {
+  color: color-mix(in srgb, var(--theme-text) 78%, white 22%);
 }
 
 .val-btn {
@@ -298,116 +368,68 @@ img {
   animation: fadeIn 0.2s ease;
 }
 
-.hero-collage-wrap {
+.hero-lineup-wrap {
   pointer-events: none;
 }
 
-.hero-collage-grid {
+.hero-lineup-stage {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.hero-collage-card {
+.hero-lineup-item {
   position: absolute;
-  overflow: hidden;
-  border: 1px solid rgba(var(--theme-text-rgb), 0.12);
-  background:
-    linear-gradient(180deg, rgba(var(--theme-card-rgb), 0.12), rgba(var(--theme-card-rgb), 0.02)),
-    radial-gradient(circle at top, color-mix(in srgb, var(--hero-accent) 22%, transparent), transparent 65%);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.35),
-    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-  backdrop-filter: blur(10px);
-  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  overflow: visible;
 }
 
-.hero-collage-aura {
+.hero-lineup-single {
   position: absolute;
-  inset: auto auto -10% 50%;
-  width: 70%;
-  height: 35%;
+  right: -2%;
+  bottom: -2%;
+  width: 82%;
+  height: 102%;
+}
+
+.hero-lineup-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 52%;
+  height: 14%;
   border-radius: 999px;
   transform: translateX(-50%);
   background: radial-gradient(circle, color-mix(in srgb, var(--hero-glow) 46%, transparent), transparent 72%);
-  filter: blur(18px);
-  opacity: 0.9;
+  filter: blur(30px);
+  opacity: 0.6;
 }
 
-.hero-collage-portrait {
+.hero-lineup-portrait {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  bottom: 0;
+  width: 126%;
+  height: 126%;
   object-fit: contain;
   object-position: center bottom;
-  filter: drop-shadow(0 18px 50px rgba(0, 0, 0, 0.35));
+  transform: translateX(-50%);
+  filter: drop-shadow(0 18px 45px rgba(0, 0, 0, 0.3));
 }
 
-.hero-collage-label {
-  position: absolute;
-  left: 20px;
-  bottom: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  text-transform: uppercase;
+body.light-mode .hero-lineup-glow {
+  width: 44%;
+  height: 10%;
+  opacity: 0.3;
+  filter: blur(22px);
 }
 
-.hero-collage-role {
-  color: var(--hero-accent);
-  font-family: "Teko", sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 0.22em;
-}
-
-.hero-collage-name {
-  color: #ffffff;
-  font-family: "Teko", sans-serif;
-  font-size: 1.85rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  line-height: 1;
-}
-
-.hero-collage-center {
-  top: 10%;
-  left: 28%;
-  width: 34%;
-  height: 76%;
-  z-index: 5;
-}
-
-.hero-collage-left {
-  top: 22%;
-  left: 6%;
-  width: 28%;
-  height: 58%;
-  z-index: 3;
-}
-
-.hero-collage-right {
-  top: 21%;
-  right: 5%;
-  width: 28%;
-  height: 60%;
-  z-index: 3;
-}
-
-.hero-collage-top {
-  top: 2%;
-  right: 22%;
-  width: 23%;
-  height: 38%;
-  z-index: 2;
-}
-
-.hero-collage-bottom {
-  bottom: 0;
-  left: 20%;
-  width: 24%;
-  height: 34%;
-  z-index: 2;
+body.light-mode .hero-lineup-portrait {
+  opacity: 0.96;
+  filter:
+    drop-shadow(0 20px 28px rgba(255, 255, 255, 0.45))
+    drop-shadow(0 12px 32px rgba(26, 38, 52, 0.12))
+    saturate(1.02)
+    contrast(1.04);
 }
 
 @media (max-width: 768px) {
@@ -434,92 +456,22 @@ img {
     visibility: visible;
   }
 
-  .hero-collage-center {
-    left: 25%;
-    width: 40%;
-    height: 74%;
-  }
-
-  .hero-collage-left {
-    left: 0;
-    width: 34%;
-    height: 52%;
-  }
-
-  .hero-collage-right {
-    right: 0;
-    width: 34%;
-    height: 54%;
-  }
-
-  .hero-collage-top {
-    right: 18%;
-    width: 28%;
-    height: 32%;
-  }
-
-  .hero-collage-bottom {
-    left: 12%;
-    width: 30%;
-    height: 28%;
-  }
-
-  .hero-collage-label {
-    left: 14px;
-    bottom: 14px;
-  }
-
-  .hero-collage-name {
-    font-size: 1.35rem;
+  .hero-lineup-single {
+    right: -6%;
+    width: 92%;
+    height: 100%;
   }
 }
 
 @media (max-width: 640px) {
-  .hero-collage-wrap {
+  .hero-lineup-wrap {
     margin-top: 12px;
   }
 
-  .hero-collage-center {
-    top: 12%;
-    left: 23%;
-    width: 46%;
-    height: 70%;
-  }
-
-  .hero-collage-left {
-    top: 25%;
-    left: -4%;
-    width: 38%;
-    height: 46%;
-  }
-
-  .hero-collage-right {
-    top: 24%;
-    right: -3%;
-    width: 38%;
-    height: 47%;
-  }
-
-  .hero-collage-top {
-    top: 4%;
-    right: 13%;
-    width: 32%;
-    height: 26%;
-  }
-
-  .hero-collage-bottom {
-    bottom: 1%;
-    left: 6%;
-    width: 36%;
-    height: 24%;
-  }
-
-  .hero-collage-role {
-    font-size: 0.72rem;
-  }
-
-  .hero-collage-name {
-    font-size: 1.1rem;
+  .hero-lineup-single {
+    right: -10%;
+    width: 104%;
+    height: 96%;
   }
 }
 

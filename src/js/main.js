@@ -18,15 +18,15 @@ function injectLayout() {
   };
 
   const navHtml = `
-    <nav class="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-10 h-[70px] bg-[#0f1923]/95 backdrop-blur-[12px] border-b border-white/10 max-md:px-5">
+    <nav class="nav-shell fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-10 h-[70px] backdrop-blur-[12px] max-md:px-5">
       <a href="${homeHref}" class="font-teko text-[2rem] font-bold tracking-[2px] cursor-pointer">
-        <span class="text-[#ff4655]">VAL</span><span class="text-[#ece8e1]">HUB</span>
+        <span class="text-[#ff4655]">VAL</span><span class="nav-brand-text">HUB</span>
       </a>
 
       <button id="mobile-menu-btn" class="hidden max-md:flex flex-col gap-1.5 cursor-pointer bg-transparent border-none p-1.5">
-        <span class="w-6 h-0.5 bg-[#ece8e1] transition-all duration-300"></span>
-        <span class="w-6 h-0.5 bg-[#ece8e1] transition-all duration-300"></span>
-        <span class="w-6 h-0.5 bg-[#ece8e1] transition-all duration-300"></span>
+        <span class="nav-menu-line w-6 h-0.5 transition-all duration-300"></span>
+        <span class="nav-menu-line w-6 h-0.5 transition-all duration-300"></span>
+        <span class="nav-menu-line w-6 h-0.5 transition-all duration-300"></span>
       </button>
 
       <ul id="nav-links" class="nav-links">
@@ -36,7 +36,7 @@ function injectLayout() {
         <li><a href="${weaponsHref}" class="nav-link ${isActive('/weapons/')}">WEAPONS</a></li>
         <li><a href="${ranksHref}" class="nav-link ${isActive('/ranks/')}">RANKS</a></li>
         <li>
-          <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#1c2b3a] border border-white/10 text-[#ece8e1] cursor-pointer transition-all duration-300 hover:border-[#ff4655] hover:text-[#ff4655]" title="Toggle Theme">
+          <button id="theme-toggle" class="theme-toggle-btn w-10 h-10 flex items-center justify-center rounded-full cursor-pointer transition-all duration-300 hover:border-[#ff4655] hover:text-[#ff4655]" title="Toggle Theme">
             <svg id="theme-icon-dark" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.95 16.95l.707.707M7.05 7.05l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
             </svg>
@@ -50,7 +50,7 @@ function injectLayout() {
   `;
 
   const footerHtml = `
-    <footer class="text-center py-10 px-5 border-t border-white/10 text-[#5a6670] text-sm bg-[#0f1923]">
+    <footer class="footer-shell text-center py-10 px-5 text-sm">
       <p>VALORANT INFO HUB — Built with ♥ using <a href="https://valorant-api.com" target="_blank" class="text-[#ff4655] hover:underline">valorant-api.com</a></p>
     </footer>
   `;

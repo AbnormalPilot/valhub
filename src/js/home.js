@@ -37,27 +37,10 @@ function render() {
 
   let shuffled = [...agents].sort(() => 0.5 - Math.random());
   const featured = shuffled.slice(0, 4);
-  const heroAgents = agents
-    .filter(agent => agent.fullPortrait)
-    .slice(0, 5);
-
-  const collageSlots = ['center', 'left', 'right', 'top', 'bottom'];
-  const heroPortraits = heroAgents.map((agent, i) => {
-    const colors = agent.backgroundGradientColors || [];
-    const accent = colors[0] ? `#${colors[0].slice(0, 6)}` : '#ff4655';
-    const glow = colors[1] ? `#${colors[1].slice(0, 6)}` : accent;
-
-    return `
-      <article class="hero-collage-card hero-collage-${collageSlots[i] || `extra-${i}`}" style="--hero-accent:${accent}; --hero-glow:${glow};">
-        <div class="hero-collage-aura"></div>
-        <img src="${agent.fullPortrait}" alt="${agent.displayName}" class="hero-collage-portrait" />
-        <div class="hero-collage-label">
-          <span class="hero-collage-role">${agent.role?.displayName || 'Agent'}</span>
-          <span class="hero-collage-name">${agent.displayName}</span>
-        </div>
-      </article>
-    `;
-  }).join('');
+  const heroAgent = agents.find(agent => agent.fullPortrait) || agents[0];
+  const heroColors = heroAgent?.backgroundGradientColors || [];
+  const heroAccent = heroColors[0] ? `#${heroColors[0].slice(0, 6)}` : '#ff4655';
+  const heroGlow = heroColors[1] ? `#${heroColors[1].slice(0, 6)}` : heroAccent;
 
   const statsHtml = [
     { num: agents.length, label: 'AGENTS' },
@@ -96,22 +79,25 @@ function render() {
   }).join('');
 
   container.innerHTML = `
-    <div class="bg-[#0f1923]">
-      <div class="relative min-h-[90vh] flex items-end justify-start overflow-hidden bg-[#0f1923] max-lg:block">
-        <div class="hero-collage-wrap absolute inset-y-0 right-0 w-[58%] overflow-hidden max-lg:relative max-lg:inset-auto max-lg:w-full max-lg:h-[520px] max-md:h-[420px]">
-          <div class="hero-collage-grid">
-            ${heroPortraits}
+    <div class="home-shell">
+      <div class="relative min-h-[90vh] flex items-end justify-start overflow-hidden home-shell max-lg:block">
+        <div class="hero-lineup-wrap absolute inset-y-0 right-0 w-[60%] overflow-hidden max-lg:relative max-lg:inset-auto max-lg:w-full max-lg:h-[620px] max-md:h-[500px]" style="--hero-accent:${heroAccent}; --hero-glow:${heroGlow};">
+          <div class="hero-lineup-stage">
+            <figure class="hero-lineup-single">
+              <div class="hero-lineup-glow"></div>
+              <img src="${heroAgent.fullPortrait}" alt="${heroAgent.displayName}" class="hero-lineup-portrait" />
+            </figure>
           </div>
         </div>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0f1923] via-[#0f1923]/70 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#0f1923] via-[#0f1923]/82 to-transparent max-lg:bg-gradient-to-t"></div>
-        <div class="relative z-10 text-left px-[60px] pb-20 pt-[120px] max-w-[720px] max-md:px-5 max-md:pb-[60px]">
-          <p class="font-teko text-xl tracking-[6px] text-[#ff4655] mb-3">DEFY THE LIMITS</p>
-          <h1 class="font-teko text-[6rem] font-bold leading-[0.95] tracking-[4px] mb-5 text-[#ece8e1] max-lg:text-[4.5rem] max-md:text-[3.5rem] max-[480px]:text-[2.5rem]">
+        <div class="absolute inset-0 home-hero-overlay-vertical"></div>
+        <div class="absolute inset-0 home-hero-overlay-horizontal max-lg:bg-gradient-to-t"></div>
+        <div class="relative z-10 text-left px-[60px] pb-20 pt-[120px] max-w-[680px] max-md:px-5 max-md:pb-[60px]">
+          <p class="home-kicker font-teko text-xl tracking-[6px] mb-3">DEFY THE LIMITS</p>
+          <h1 class="home-title font-teko text-[6rem] font-bold leading-[0.95] tracking-[4px] mb-5 max-lg:text-[4.5rem] max-md:text-[3.5rem] max-[480px]:text-[2.5rem]">
             VALORANT<br />
             <span class="text-[#ff4655] text-[4.5rem] max-lg:text-[3.5rem] max-md:text-[2.5rem] max-[480px]:text-[2rem]">INFO HUB</span>
           </h1>
-          <p class="max-w-[520px] text-[1rem] leading-7 text-[#c5c0b8] mb-8 max-md:text-[0.95rem]">
+          <p class="home-summary max-w-[520px] text-[1rem] leading-7 mb-8 max-md:text-[0.95rem]">
             Explore agents, weapons, maps, and ranks through a polished VALORANT companion built with live API data, interactive filters, and a fast browsing experience.
           </p>
           <a href="${getPageHref('/agents/')}" class="inline-block font-teko text-[1.15rem] font-semibold tracking-[3px] py-3.5 px-10 bg-[#ff4655] text-white border-none cursor-pointer transition-all duration-300 uppercase clip-corner-md hover:bg-[#d63845] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,70,85,0.3)]">
@@ -120,14 +106,14 @@ function render() {
         </div>
       </div>
 
-      <div class="bg-[#0f1923] py-[60px]">
+      <div class="home-section py-[60px]">
         <div class="grid grid-cols-4 gap-5 max-w-[1400px] mx-auto px-10 max-lg:grid-cols-2 max-md:gap-3 max-md:px-5">
           ${statsHtml}
         </div>
       </div>
 
       ${featured.length > 0 ? `
-        <div class="bg-[#0f1923] max-w-[1400px] mx-auto pb-[60px] px-10 max-md:px-5">
+        <div class="home-section max-w-[1400px] mx-auto pb-[60px] px-10 max-md:px-5">
           <h2 class="font-teko text-[2.5rem] font-semibold tracking-[4px] uppercase mb-[30px] text-center">
             FEATURED <span class="text-val-red">AGENTS</span>
           </h2>
