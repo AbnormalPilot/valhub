@@ -60,12 +60,13 @@
 }
 
 @layer base {
-  body {
+  html, body {
     font-family: var(--font-family-dm);
-    background-color: var(--color-val-dark);
+    background-color: #0f1923;
     color: var(--color-val-text);
     overflow-x: hidden;
     position: relative;
+    min-height: 100vh;
   }
   
   /* Signature Valorant Geometric Background Overlay */

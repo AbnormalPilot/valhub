@@ -38,8 +38,8 @@ function render() {
   let shuffled = [...agents].sort(() => 0.5 - Math.random());
   const featured = shuffled.slice(0, 4);
 
-  const heroPortraits = agents.slice(0, 7).map(agent => `
-    <img src="${agent.fullPortrait}" alt="${agent.displayName}" class="hero-portrait h-[85%] max-w-none object-contain opacity-50 mx-[-350px] brightness-[0.7] shrink-0" />
+  const heroPortraits = agents.slice(0, 5).map((agent, i) => `
+    <img src="${agent.fullPortrait}" alt="${agent.displayName}" class="hero-portrait absolute h-[75%] max-w-none object-contain opacity-40 brightness-[0.6]" style="right: ${i * 15}%; z-index: ${5 - i}; transform: translateX(${i * 50}px) scale(${1 - i * 0.1});" />
   `).join('');
 
   const statsHtml = [
@@ -79,30 +79,33 @@ function render() {
   }).join('');
 
   container.innerHTML = `
-    <div>
-      <div class="relative min-h-screen flex items-end justify-start overflow-hidden">
-        <div class="absolute bottom-0 left-0 right-0 flex items-end justify-center h-full overflow-hidden">
+    <div class="bg-[#0f1923]">
+      <div class="relative min-h-[90vh] flex items-end justify-start overflow-hidden bg-[#0f1923]">
+        <div class="absolute bottom-0 right-0 h-full w-full overflow-hidden pointer-events-none">
           ${heroPortraits}
         </div>
-        <div class="absolute inset-0" style="background: linear-gradient(to top, var(--theme-dark) 0%, transparent 100%), linear-gradient(to right, var(--theme-dark) 0%, transparent 50%)"></div>
-        <div class="relative z-[2] text-left px-[60px] pb-20 max-md:px-5 max-md:pb-[60px]">
-          <p class="font-teko text-xl tracking-[6px] text-val-red mb-3">DEFY THE LIMITS</p>
-          <h1 class="font-teko text-[6rem] font-bold leading-[0.95] tracking-[4px] mb-5 max-lg:text-[4.5rem] max-md:text-[3.5rem] max-[480px]:text-[2.5rem]">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0f1923] via-[#0f1923]/70 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0f1923] via-[#0f1923]/80 to-transparent"></div>
+        <div class="relative z-10 text-left px-[60px] pb-20 max-md:px-5 max-md:pb-[60px] pt-[120px]">
+          <p class="font-teko text-xl tracking-[6px] text-[#ff4655] mb-3">DEFY THE LIMITS</p>
+          <h1 class="font-teko text-[6rem] font-bold leading-[0.95] tracking-[4px] mb-5 text-[#ece8e1] max-lg:text-[4.5rem] max-md:text-[3.5rem] max-[480px]:text-[2.5rem]">
             VALORANT<br />
-            <span class="text-val-red text-[4.5rem] max-lg:text-[3.5rem] max-md:text-[2.5rem] max-[480px]:text-[2rem]">INFO HUB</span>
+            <span class="text-[#ff4655] text-[4.5rem] max-lg:text-[3.5rem] max-md:text-[2.5rem] max-[480px]:text-[2rem]">INFO HUB</span>
           </h1>
-          <a href="/agents.html" class="inline-block font-teko text-[1.15rem] font-semibold tracking-[3px] py-3.5 px-10 bg-val-red text-white border-none cursor-pointer transition-all duration-300 uppercase clip-corner-md hover:bg-val-red-dark hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,70,85,0.3)]">
+          <a href="/agents.html" class="inline-block font-teko text-[1.15rem] font-semibold tracking-[3px] py-3.5 px-10 bg-[#ff4655] text-white border-none cursor-pointer transition-all duration-300 uppercase clip-corner-md hover:bg-[#d63845] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,70,85,0.3)]">
             EXPLORE AGENTS
           </a>
         </div>
       </div>
 
-      <div class="grid grid-cols-4 gap-5 max-w-[1400px] mx-auto mb-[60px] px-10 max-lg:grid-cols-2 max-md:gap-3 max-md:px-5">
-        ${statsHtml}
+      <div class="bg-[#0f1923] py-[60px]">
+        <div class="grid grid-cols-4 gap-5 max-w-[1400px] mx-auto px-10 max-lg:grid-cols-2 max-md:gap-3 max-md:px-5">
+          ${statsHtml}
+        </div>
       </div>
 
       ${featured.length > 0 ? `
-        <div class="max-w-[1400px] mx-auto mb-[60px] px-10 max-md:px-5">
+        <div class="bg-[#0f1923] max-w-[1400px] mx-auto pb-[60px] px-10 max-md:px-5">
           <h2 class="font-teko text-[2.5rem] font-semibold tracking-[4px] uppercase mb-[30px] text-center">
             FEATURED <span class="text-val-red">AGENTS</span>
           </h2>
